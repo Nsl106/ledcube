@@ -4,57 +4,59 @@
 #include <Patterns.h>
 #include <Constants.h>
 
-DMAMEM int displayMemory[LED_COUNT * 1];
-int drawingMemory[LED_COUNT * 1];
+DMAMEM int displayMemory[LED_COUNT];
+int drawingMemory[LED_COUNT];
 
-constexpr int config = WS2811_GRB | WS2811_800kHz;
+constexpr int config = WS2811_RGB | WS2811_800kHz;
 
-const uint8_t pins[8] = {23, 255, 255, 255, 255, 255, 255, 255};
+constexpr uint8_t pins[STRIP_COUNT] = {
+    23,
+    22,
+    21,
+    20,
+    19,
+    18,
+    17,
+    16
+};
 
-OctoWS2811 leds(LED_COUNT, displayMemory, drawingMemory, config, 1, pins);
+OctoWS2811 leds(LEDS_PER_STRIP, displayMemory, drawingMemory, config, STRIP_COUNT, pins);
+
+std::vector<void(*)()> patternList;
 
 void setup() {
     leds.begin();
     leds.show();
+
+    patternList = {
+        [] { Patterns::rgbColorShift(0.5, 16, 4); },
+        [] { Patterns::twinkleFade(0.95, 0.002, Color::Coral); },
+        [] { Patterns::rgbColorShift(.25, 0, 0.75); },
+        [] { Patterns::twinkleFade(.98, 0.001, Color::DarkViolet); },
+        [] { Patterns::rgbColorShift(.5, 0.5, 2.0); },
+        [] { Patterns::solid(Color::White); }
+    };
 }
 
-constexpr unsigned long patternTimeMs = 8000;
+constexpr unsigned long patternTimeMs = 4000;
 
 static unsigned long timer = 0;
 static int pattern = 0;
+static int force_pattern = -1; // -1 to disable
 
 void loop() {
-    switch (pattern) {
-    case 0:
-        Patterns::rgbColorShift(1.00);
-        break;
-    case 1:
-        Patterns::solid(Color::Violet);
-        break;
-    case 2:
-        Patterns::twinkle(5, Color(255, 255, 255), Color(0, 0, 100), 40);
-        break;
-    case 3:
-        Patterns::twinkleFade(0.95, 0.005, Color::Coral);
-        break;
-    case 4:
-        Patterns::fire();
-        break;
-    case 5:
-        Patterns::twinkleFade(.98, 0.001, Color::DarkViolet);
-        break;
-
-    default:
-        Patterns::off();
-        break;
+    if (force_pattern != -1) {
+        pattern = force_pattern;
     }
 
-    unsigned long now = millis();
-    if (now - timer > patternTimeMs) {
+    if (pattern >= patternList.size()) {
+        pattern = 0;
+    }
+
+    patternList[pattern]();
+
+    if (const unsigned long now = millis(); now - timer > patternTimeMs) {
         timer = now;
         pattern++;
-        if (pattern > 5) {
-            pattern = 0;
-        }
     }
 }

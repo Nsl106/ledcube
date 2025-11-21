@@ -1,3 +1,5 @@
 #pragma once
 
-constexpr int LED_COUNT = 300;
+constexpr int LEDS_PER_STRIP = 256;
+constexpr int STRIP_COUNT = 8;
+constexpr int LED_COUNT = LEDS_PER_STRIP * STRIP_COUNT;

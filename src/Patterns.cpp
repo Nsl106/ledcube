@@ -32,14 +32,14 @@ void Patterns::twinkle(int num, Color c,Color bg, int delayMs) {
     delay(delayMs);
 }
 
-void Patterns::rgbColorShift(float brightness) {
-    static uint16_t hue = 0;
+void Patterns::rgbColorShift(float brightness, float size, float speed) {
+    static float hue = 0;
 
     for (int i = 0; i < LED_COUNT; i++) {
-        leds.setPixel(i, Color::fromHSV((hue + i * 3) % 360, 1, brightness).asInt()); // Offset per pixel for rainbow effect
+        leds.setPixel(i, Color::fromHSV(fmod(hue + i * size, 360), 1, brightness).asInt()); // Offset per pixel for rainbow effect
     }
 
-    hue = (hue + 2) % 360; // Increment hue smoothly
+    hue = fmod(hue + speed, 360); // Increment hue smoothly
     delayNanoseconds(10000);
     leds.show();
 }
