@@ -10,4 +10,5 @@ namespace Patterns {
     void twinkle(int num, Color c, Color bg, int delayMs);
     void rgbColorShift(float brightness, float size, float speed);
     void solid(Color color);
+    void literalRandom(float brightness, float durationMs);
 }

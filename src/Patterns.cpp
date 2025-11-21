@@ -44,6 +44,15 @@ void Patterns::rgbColorShift(float brightness, float size, float speed) {
     leds.show();
 }
 
+void Patterns::literalRandom(float brightness, float durationMs) {
+    for (int i = 0; i < LED_COUNT; i++) {
+        leds.setPixel(i, Color::fromHSV(random(360), 1, brightness).asInt()); // Offset per pixel for rainbow effect
+    }
+
+    leds.show();
+    delay(durationMs);
+}
+
 
 void Patterns::twinkleFade(float fadeRate, float spawnChance, Color color) {
     static float brightness[LED_COUNT] = { 0 };  // Fading brightness buffer

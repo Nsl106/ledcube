@@ -17,7 +17,9 @@ constexpr uint8_t pins[STRIP_COUNT] = {
     19,
     18,
     17,
-    16
+    16,
+    41
+    //...34
 };
 
 OctoWS2811 leds(LEDS_PER_STRIP, displayMemory, drawingMemory, config, STRIP_COUNT, pins);
@@ -34,7 +36,8 @@ void setup() {
         [] { Patterns::rgbColorShift(.25, 0, 0.75); },
         [] { Patterns::twinkleFade(.98, 0.001, Color::DarkViolet); },
         [] { Patterns::rgbColorShift(.5, 0.5, 2.0); },
-        [] { Patterns::solid(Color::White); }
+        [] { Patterns::literalRandom(1.0, 500); },
+        // [] { Patterns::solid(Color::White); }
     };
 }
 
@@ -42,6 +45,7 @@ constexpr unsigned long patternTimeMs = 4000;
 
 static unsigned long timer = 0;
 static int pattern = 0;
+// static int force_pattern = 0; // -1 to disable
 static int force_pattern = -1; // -1 to disable
 
 void loop() {
