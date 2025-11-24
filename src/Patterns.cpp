@@ -63,7 +63,7 @@ void Patterns::twinkleFade(float fadeRate, float spawnChance, Color color) {
         brightness[i] *= fadeRate;
 
         // Spawn a new twinkle randomly
-        if (random(1000) < spawnChance * 1000) {
+        if (random(100000) < spawnChance * 100000) {
             brightness[i] = 1.0f;
         }
 

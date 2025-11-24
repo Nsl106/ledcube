@@ -31,12 +31,13 @@ void setup() {
     leds.show();
 
     patternList = {
+        [] { Patterns::twinkleFade(0.99, 0.00005, Color::Maroon); },
         [] { Patterns::rgbColorShift(0.5, 16, 4); },
         [] { Patterns::twinkleFade(0.95, 0.002, Color::Coral); },
         [] { Patterns::rgbColorShift(.25, 0, 0.75); },
-        [] { Patterns::twinkleFade(.98, 0.001, Color::DarkViolet); },
+        [] { Patterns::twinkleFade(.98, 0.001, Color::Fuchsia); },
         [] { Patterns::rgbColorShift(.5, 0.5, 2.0); },
-        [] { Patterns::literalRandom(1.0, 500); },
+        [] { Patterns::literalRandom(0.5, 500); },
         // [] { Patterns::solid(Color::White); }
     };
 }
@@ -45,7 +46,7 @@ constexpr unsigned long patternTimeMs = 4000;
 
 static unsigned long timer = 0;
 static int pattern = 0;
-// static int force_pattern = 0; // -1 to disable
+// static int force_pattern = 2; // -1 to disable
 static int force_pattern = -1; // -1 to disable
 
 void loop() {
