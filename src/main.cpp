@@ -18,7 +18,10 @@ constexpr uint8_t pins[STRIP_COUNT] = {
     18,
     17,
     16,
-    41
+    41,
+    40,
+    39,
+    38
     //...34
 };
 
