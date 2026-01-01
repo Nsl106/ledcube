@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
 	server: {
 		proxy: {
-			'/api': 'http://ledcube.local:5000'
+			'/api': 'http://192.168.0.81:5000'
 		}
 	}
 });
