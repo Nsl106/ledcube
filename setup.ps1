@@ -69,7 +69,7 @@ ssh "${User}@${PiHost}" "mkdir -p ${RemotePath}/backend/uploads"
 
 # Copy requirements.txt for venv setup
 Write-Host "Copying requirements.txt..." -ForegroundColor Yellow
-scp "${ScriptDir}/backend/requirements.txt" "${User}@${PiHost}:${RemotePath}/backend/"
+scp "${ScriptDir}/dashboard/backend/requirements.txt" "${User}@${PiHost}:${RemotePath}/backend/"
 
 # Create virtual environment
 Write-Host "Creating Python virtual environment..." -ForegroundColor Yellow

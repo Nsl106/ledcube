@@ -17,9 +17,29 @@ Web interface for managing a 16x16x16 LED cube controlled by Teensy 4.1.
 
 ## Repository Structure
 
-Two separate repositories:
-1. `ledcube-firmware`: Teensy C++ code, animations, USB protocol docs (PROTOCOL.md)
-2. `ledcube-dashboard`: This project - web UI and backend
+    Monorepo containing all LED cube components:
+
+```
+ledcube/
+├── claude.md              # This file
+├── deploy.ps1             # Deploy backend to Pi
+├── setup.ps1              # One-time Pi setup
+├── ledcube.service        # systemd service definition
+├── dashboard/
+│   ├── backend/           # Python Flask API
+│   │   ├── app.py
+│   │   ├── requirements.txt
+│   │   └── uploads/       # Hex file uploads
+│   └── frontend/          # Svelte + TypeScript + Vite
+│       ├── src/
+│       ├── package.json
+│       └── vite.config.ts
+└── firmware/              # Teensy 4.1 C++ code
+    ├── src/
+    ├── include/
+    ├── lib/
+    └── platformio.ini
+```
 
 ## Core Features
 
@@ -57,8 +77,43 @@ Two separate repositories:
 **Deployment:**
 - Build frontend → static files
 - Flask serves built frontend + API
-- `deploy.sh` script: build, rsync to Pi, restart service
+- PowerShell scripts for Windows → Pi deployment via SSH
 - Single systemd service on Pi
+
+## Deployment Scripts
+
+### setup.ps1 (One-time Setup)
+Run once to initialize a fresh Raspberry Pi:
+1. Tests SSH connection to Pi
+2. Builds and installs `teensy_loader_cli` from source
+3. Configures udev rules for Teensy USB access (no sudo needed)
+4. Creates remote directory structure and Python venv
+5. Installs Python dependencies from requirements.txt
+6. Installs and enables the systemd service
+
+```powershell
+.\setup.ps1 [-PiHost "ledcube.local"] [-User "ledcube"] [-RemotePath "/home/ledcube/ledcube-dashboard"]
+```
+
+### deploy.ps1 (Deploy Updates)
+Deploy backend code changes to the Pi:
+1. Copies `dashboard/backend/app.py` and `requirements.txt` to Pi
+2. Restarts the ledcube systemd service (unless -NoRestart)
+
+```powershell
+.\deploy.ps1 [-PiHost "ledcube.local"] [-User "ledcube"] [-NoRestart]
+```
+
+### Remote Directory Structure
+On the Pi, deployed files live in a simpler structure:
+```
+/home/ledcube/ledcube-dashboard/
+├── backend/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── uploads/
+└── venv/
+```
 
 ## Backend (Flask)
 

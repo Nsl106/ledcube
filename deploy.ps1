@@ -10,7 +10,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$BackendDir = Join-Path $ScriptDir "backend"
+$BackendDir = Join-Path $ScriptDir "dashboard\backend"
 
 Write-Host "=== LED Cube Dashboard Deploy ===" -ForegroundColor Cyan
 Write-Host "Target: ${User}@${PiHost}:${RemotePath}"
