@@ -1,0 +1,15 @@
+[Unit]
+Description=LED Cube Dashboard
+After=network.target
+
+[Service]
+Type=simple
+User=ledcube
+WorkingDirectory=/home/ledcube/ledcube-dashboard/backend
+ExecStart=/home/ledcube/ledcube-dashboard/venv/bin/python app.py
+Restart=on-failure
+RestartSec=5
+Environment=FLASK_ENV=production
+
+[Install]
+WantedBy=multi-user.target
