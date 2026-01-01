@@ -26,6 +26,25 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
+# Check sudo access
+Write-Host "Checking sudo access..." -ForegroundColor Yellow
+ssh "${User}@${PiHost}" "sudo -n true 2>/dev/null"
+
+if ($LASTEXITCODE -ne 0) {
+    # Try with password prompt
+    ssh "${User}@${PiHost}" "sudo true"
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Error: User '${User}' does not have sudo access on the Pi." -ForegroundColor Red
+        Write-Host "  To fix this, SSH to the Pi as root or another sudo user and run:" -ForegroundColor Yellow
+        Write-Host "    sudo usermod -aG sudo ${User}" -ForegroundColor White
+        Write-Host "  Then log out and back in, or reboot the Pi." -ForegroundColor Yellow
+        exit 1
+    }
+}
+
+Write-Host "sudo access confirmed" -ForegroundColor Green
+
 # Install teensy_loader_cli
 Write-Host "Checking for teensy_loader_cli..." -ForegroundColor Yellow
 $hasTeensy = ssh "${User}@${PiHost}" "which teensy_loader_cli 2>/dev/null"
@@ -50,17 +69,45 @@ rm -rf /tmp/teensy_loader_cli
         exit 1
     }
 
-    # Set up udev rules for Teensy USB access without sudo
-    Write-Host "Setting up udev rules for Teensy..." -ForegroundColor Yellow
-    ssh "${User}@${PiHost}" @"
-echo 'ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04*", MODE="0666"' | sudo tee /etc/udev/rules.d/49-teensy.rules &&
-sudo udevadm control --reload-rules &&
-sudo udevadm trigger
-"@
-
     Write-Host "teensy_loader_cli installed successfully" -ForegroundColor Green
 } else {
     Write-Host "teensy_loader_cli already installed" -ForegroundColor Green
+}
+
+# Set up udev rules for Teensy USB access without sudo (always run to ensure rules are current)
+Write-Host "Setting up udev rules for Teensy..." -ForegroundColor Yellow
+$udevRules = @(
+    '# PJRC Teensy USB rules - allow access without sudo',
+    '# Ignore modem manager for Teensy devices',
+    'ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04*", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_PORT_IGNORE}="1"',
+    '# Allow access to raw USB device (needed for teensy_loader_cli)',
+    'SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04*", MODE="0666", GROUP="plugdev"',
+    '# Allow access to serial device',
+    'KERNEL=="ttyACM*", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04*", MODE="0666", GROUP="plugdev"',
+    '# HalfKay bootloader',
+    'SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="0478", MODE="0666", GROUP="plugdev"'
+) -join "`n"
+ssh "${User}@${PiHost}" "echo '$udevRules' | sudo tee /etc/udev/rules.d/49-teensy.rules > /dev/null && sudo udevadm control --reload-rules && sudo udevadm trigger"
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Warning: Failed to set up udev rules. You may need sudo for flashing." -ForegroundColor Yellow
+} else {
+    Write-Host "udev rules configured successfully" -ForegroundColor Green
+}
+
+# Add user to plugdev group for USB access
+Write-Host "Adding user to plugdev group..." -ForegroundColor Yellow
+ssh "${User}@${PiHost}" "sudo usermod -aG plugdev ${User}"
+
+# Configure sudoers for teensy_loader_cli (fallback if udev isn't sufficient)
+Write-Host "Configuring sudoers for teensy_loader_cli..." -ForegroundColor Yellow
+$sudoersRule = "${User} ALL=(ALL) NOPASSWD: /usr/local/bin/teensy_loader_cli"
+ssh "${User}@${PiHost}" "echo '$sudoersRule' | sudo tee /etc/sudoers.d/teensy-loader > /dev/null && sudo chmod 440 /etc/sudoers.d/teensy-loader"
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Warning: Failed to configure sudoers." -ForegroundColor Yellow
+} else {
+    Write-Host "sudoers configured successfully" -ForegroundColor Green
 }
 
 # Create directory structure

@@ -83,10 +83,11 @@ def flash_firmware():
         logger.error(f"Failed to save file: {e}")
         return jsonify({"success": False, "error": "Failed to save file"}), 500
 
-    # Flash the Teensy
+    # Flash the Teensy (use sudo for USB access - configured via sudoers)
     try:
         result = subprocess.run(
             [
+                "sudo",
                 TEENSY_LOADER_PATH,
                 "--mcu", TEENSY_MCU,
                 "-w",  # Wait for device
