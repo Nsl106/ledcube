@@ -5,16 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3add12c6-2ee1-4efe-9b56-e09b6343084b" name="Changes" comment="add animation control">
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/TestAnimation.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/TestAnimation.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/firmware/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/Animation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/Animation.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/LedUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/LedUtils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/LedUtils.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/LedUtils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +110,7 @@
       <workItem from="1767317835423" duration="68000" />
       <workItem from="1767317906460" duration="763000" />
       <workItem from="1767322223760" duration="298000" />
-      <workItem from="1767322539947" duration="6592000" />
+      <workItem from="1767322539947" duration="7537000" />
     </task>
     <task id="LOCAL-00001" summary="move to firmware folder">
       <option name="closed" value="true" />

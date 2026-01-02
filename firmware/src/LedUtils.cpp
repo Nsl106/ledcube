@@ -33,7 +33,7 @@ namespace LedUtils {
 
     int coordToIndex(int x, int y, int z) {
         // Y determines which strip (each strip is one Y-slice)
-        int stripOffset = y * LEDS_PER_STRIP;
+        int stripOffset = (15 - y) * LEDS_PER_STRIP;
 
         // Handle snaking pattern within each XZ plane:
         // Even rows (z=0,2,4...): X goes right-to-left (15→0)

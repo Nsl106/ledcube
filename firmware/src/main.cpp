@@ -35,6 +35,7 @@
 #include "animations/FillAnimation.h"
 #include "animations/PlaneSweepAnimation.h"
 #include "animations/RainAnimation.h"
+#include "animations/TestAnimation.h"
 
 // ----- OctoWS2811 Configuration -----
 

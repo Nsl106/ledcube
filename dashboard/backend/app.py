@@ -128,6 +128,17 @@ ANIMATIONS = {
             {"key": "speed", "label": "Speed", "type": "float", "min": 0.1, "max": 1.0, "default": 0.3, "step": 0.1},
             {"key": "trailLength", "label": "Trail Length", "type": "float", "min": 1.0, "max": 8.0, "default": 4.0, "step": 0.5},
         ],
+    },
+    9: {
+        "id": 9,
+        "name": "Test",
+        "description": "Test",
+        "params": [
+            {"key": "color", "label": "Color", "type": "color", "default": "0064FF"},
+            {"key": "x", "label": "X", "type": "int", "min": 0, "max": 15, "default": 0, "step": 1},
+            {"key": "y", "label": "Y", "type": "int", "min": 0, "max": 15, "default": 0, "step": 1},
+            {"key": "z", "label": "Z", "type": "int", "min": 0, "max": 15, "default": 0, "step": 1},
+        ],
     }
 }
 
