@@ -1,90 +1,78 @@
+/**
+ * main.cpp
+ *
+ * LED Cube Firmware - Main entry point for Teensy 4.1
+ *
+ * This firmware drives a 16x16x16 LED cube using the OctoWS2811 library.
+ * It receives commands over USB serial to switch animations and adjust parameters.
+ *
+ * Serial Protocol:
+ *   Command format: "ANIM:<id>:<param1>:<param2>:...\n"
+ *   Response: "OK" on success, "ERR:<message>" on failure
+ *
+ *   Example: "ANIM:4:FF0000\n" - Set animation 4 (Solid) with red color
+ *
+ * Hardware:
+ *   - Teensy 4.1
+ *   - 16 strips of WS2812B LEDs (256 LEDs each, 4096 total)
+ *   - Each strip is one Z-slice of the cube
+ */
+
 #include <Arduino.h>
 #include <OctoWS2811.h>
-#include <Color.h>
-#include <Patterns.h>
-#include <Constants.h>
+#include "Color.h"
+#include "Constants.h"
+#include "Animation.h"
+#include "AnimationRegistry.h"
 
+// Include all animations - this triggers auto-registration via REGISTER_ANIMATION macro
+#include "animations/TwinkleFadeAnimation.h"
+#include "animations/RgbColorShiftAnimation.h"
+#include "animations/TwinkleAnimation.h"
+#include "animations/LiteralRandomAnimation.h"
+#include "animations/SolidAnimation.h"
+#include "animations/FireAnimation.h"
+#include "animations/FillAnimation.h"
+#include "animations/PlaneSweepAnimation.h"
+#include "animations/RainAnimation.h"
+
+// ----- OctoWS2811 Configuration -----
+
+// DMA buffer for LED data (in DMAMEM for faster access)
 DMAMEM int displayMemory[LED_COUNT];
 int drawingMemory[LED_COUNT];
 
+// LED strip configuration: RGB order, 800kHz signal
 constexpr int config = WS2811_RGB | WS2811_800kHz;
 
+// Teensy 4.1 pins connected to LED strips
+// First 8 strips on pins 23-16, next 8 on pins 41-34
 constexpr uint8_t pins[STRIP_COUNT] = {
-    23,
-    22,
-    21,
-    20,
-    19,
-    18,
-    17,
-    16,
-    41,
-    40,
-    39,
-    38,
-    37,
-    36,
-    35,
-    34
+    23, 22, 21, 20, 19, 18, 17, 16,
+    41, 40, 39, 38, 37, 36, 35, 34
 };
 
+// Global OctoWS2811 instance (referenced by LedUtils)
 OctoWS2811 leds(LEDS_PER_STRIP, displayMemory, drawingMemory, config, STRIP_COUNT, pins);
 
-constexpr int ANIMATION_COUNT = 6;
-static int currentAnimation = 0;
+// ----- Animation State -----
 
-// Animation parameters with defaults
-// 0: twinkleFade(fadeRate, spawnChance, color)
-static float twinkleFade_fadeRate = 0.98f;
-static float twinkleFade_spawnChance = 0.001f;
-static Color twinkleFade_color = Color::Coral;
+// Currently active animation (nullptr if none)
+static Animation* currentAnimation = nullptr;
 
-// 1: rgbColorShift(brightness, size, speed)
-static float rgbColorShift_brightness = 0.5f;
-static float rgbColorShift_size = 16.0f;
-static float rgbColorShift_speed = 4.0f;
+// Buffer for accumulating serial input
+static String serialBuffer = "";
 
-// 2: twinkle(num, color, bg, delayMs)
-static int twinkle_num = 50;
-static Color twinkle_color = Color::White;
-static Color twinkle_bg = Color::Black;
-static int twinkle_delay = 100;
+// ----- Helper Functions -----
 
-// 3: literalRandom(brightness, durationMs)
-static float literalRandom_brightness = 0.5f;
-static float literalRandom_duration = 100.0f;
-
-// 4: solid(color)
-static Color solid_color = Color::Blue;
-
-// Animation runner functions using stored parameters
-void runTwinkleFade() { Patterns::twinkleFade(twinkleFade_fadeRate, twinkleFade_spawnChance, twinkleFade_color); }
-void runRgbColorShift() { Patterns::rgbColorShift(rgbColorShift_brightness, rgbColorShift_size, rgbColorShift_speed); }
-void runTwinkle() { Patterns::twinkle(twinkle_num, twinkle_color, twinkle_bg, twinkle_delay); }
-void runLiteralRandom() { Patterns::literalRandom(literalRandom_brightness, literalRandom_duration); }
-void runSolid() { Patterns::solid(solid_color); }
-void runFire() { Patterns::fire(); }
-
-void (*animations[])() = {
-    runTwinkleFade,
-    runRgbColorShift,
-    runTwinkle,
-    runLiteralRandom,
-    runSolid,
-    runFire
-};
-
-// Parse hex color string (e.g., "FF6347") to Color
-Color parseHexColor(const String& hex) {
-    uint32_t val = strtoul(hex.c_str(), nullptr, 16);
-    return Color((val >> 16) & 0xFF, (val >> 8) & 0xFF, val & 0xFF);
-}
-
-// Split string by delimiter and return part at index
+/**
+ * Extract a delimited part from a string.
+ * Example: getPart("a:b:c", ':', 1) returns "b"
+ */
 String getPart(const String& str, char delim, int index) {
     int start = 0;
     int count = 0;
-    for (int i = 0; i <= str.length(); i++) {
+    for (unsigned int i = 0; i <= str.length(); i++) {
         if (i == str.length() || str[i] == delim) {
             if (count == index) {
                 return str.substring(start, i);
@@ -96,80 +84,75 @@ String getPart(const String& str, char delim, int index) {
     return "";
 }
 
-// Count parts in delimited string
-int countParts(const String& str, char delim) {
-    if (str.length() == 0) return 0;
-    int count = 1;
-    for (int i = 0; i < str.length(); i++) {
-        if (str[i] == delim) count++;
-    }
-    return count;
-}
-
-// Serial command processing
-String serialBuffer = "";
-
+/**
+ * Process incoming serial commands.
+ * Reads characters until newline, then parses and executes the command.
+ */
 void processSerialCommand() {
     while (Serial.available()) {
         char c = Serial.read();
+
         if (c == '\n') {
+            // Process complete command
             if (serialBuffer.startsWith("ANIM:")) {
+                // Parse animation command: "ANIM:<id>:<params...>"
                 String params = serialBuffer.substring(5);
                 int id = getPart(params, ':', 0).toInt();
 
-                if (id >= 0 && id < ANIMATION_COUNT) {
-                    currentAnimation = id;
-                    int numParts = countParts(params, ':');
-
-                    // Parse animation-specific parameters
-                    if (id == 0 && numParts >= 4) {
-                        // twinkleFade: fadeRate:spawnChance:color
-                        twinkleFade_fadeRate = getPart(params, ':', 1).toFloat();
-                        twinkleFade_spawnChance = getPart(params, ':', 2).toFloat();
-                        twinkleFade_color = parseHexColor(getPart(params, ':', 3));
-                    } else if (id == 1 && numParts >= 4) {
-                        // rgbColorShift: brightness:size:speed
-                        rgbColorShift_brightness = getPart(params, ':', 1).toFloat();
-                        rgbColorShift_size = getPart(params, ':', 2).toFloat();
-                        rgbColorShift_speed = getPart(params, ':', 3).toFloat();
-                    } else if (id == 2 && numParts >= 5) {
-                        // twinkle: num:color:bg:delay
-                        twinkle_num = getPart(params, ':', 1).toInt();
-                        twinkle_color = parseHexColor(getPart(params, ':', 2));
-                        twinkle_bg = parseHexColor(getPart(params, ':', 3));
-                        twinkle_delay = getPart(params, ':', 4).toInt();
-                    } else if (id == 3 && numParts >= 3) {
-                        // literalRandom: brightness:duration
-                        literalRandom_brightness = getPart(params, ':', 1).toFloat();
-                        literalRandom_duration = getPart(params, ':', 2).toFloat();
-                    } else if (id == 4 && numParts >= 2) {
-                        // solid: color
-                        solid_color = parseHexColor(getPart(params, ':', 1));
+                Animation* newAnim = AnimationRegistry::instance().getById(id);
+                if (newAnim != nullptr) {
+                    // Deactivate current animation
+                    if (currentAnimation != nullptr) {
+                        currentAnimation->onDeactivate();
                     }
-                    // id == 5 (fire) has no parameters
+
+                    // Activate new animation
+                    currentAnimation = newAnim;
+                    currentAnimation->onActivate();
+
+                    // Parse animation-specific parameters (everything after first colon)
+                    int firstColon = params.indexOf(':');
+                    if (firstColon >= 0 && firstColon < (int)params.length() - 1) {
+                        String animParams = params.substring(firstColon + 1);
+                        currentAnimation->parseParams(animParams);
+                    }
 
                     Serial.println("OK");
                 } else {
                     Serial.println("ERR:Invalid animation ID");
                 }
             }
+            // Reset buffer for next command
             serialBuffer = "";
         } else if (c != '\r') {
+            // Accumulate characters (ignore carriage returns)
             serialBuffer += c;
         }
     }
 }
 
+// ----- Arduino Entry Points -----
+
 void setup() {
     Serial.begin(115200);
+
+    // Initialize LED strips
     leds.begin();
-    leds.show();
+    leds.show();  // Clear all LEDs
+
+    // Start with default animation (ID 0 = TwinkleFade)
+    currentAnimation = AnimationRegistry::instance().getById(0);
+    if (currentAnimation) {
+        currentAnimation->onActivate();
+    }
 }
 
 void loop() {
+    // Check for and process serial commands
     processSerialCommand();
 
-    if (currentAnimation >= 0 && currentAnimation < ANIMATION_COUNT) {
-        animations[currentAnimation]();
+    // Run current animation's update loop
+    if (currentAnimation != nullptr) {
+        currentAnimation->update();
     }
 }

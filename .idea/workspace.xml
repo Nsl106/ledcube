@@ -5,11 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3add12c6-2ee1-4efe-9b56-e09b6343084b" name="Changes" comment="add firmware build-only configuration">
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/ledcube.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/.idea/firmware.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/Animation.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/AnimationRegistry.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/AnimationRegistry.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/LedUtils.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/LedUtils.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/FireAnimation.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/FireAnimation.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/LiteralRandomAnimation.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/LiteralRandomAnimation.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/PlaneSweepAnimation.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/PlaneSweepAnimation.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/RgbColorShiftAnimation.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/RgbColorShiftAnimation.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/SolidAnimation.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/SolidAnimation.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleAnimation.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleAnimation.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleFadeAnimation.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleFadeAnimation.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/frontend/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/frontend/src/routes/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/frontend/vite.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/Constants.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/Constants.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/Patterns.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/Patterns.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/firmware/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +96,7 @@
     "nodejs_package_manager_path": "npm",
     "npm.dev.executor": "Run",
     "prettierjs.PrettierConfiguration.Package": "X:\\dev\\ledcube\\dashboard\\frontend\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "ts.external.directory.path": "X:\\dev\\ledcube\\dashboard\\frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -91,7 +121,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-WS-251.26094.131" />
       </set>
     </attachedChunks>
   </component>
@@ -105,6 +135,10 @@
       <workItem from="1767249127587" duration="8182000" />
       <workItem from="1767258614680" duration="50000" />
       <workItem from="1767258950642" duration="821000" />
+      <workItem from="1767317835423" duration="68000" />
+      <workItem from="1767317906460" duration="763000" />
+      <workItem from="1767322223760" duration="298000" />
+      <workItem from="1767322539947" duration="6592000" />
     </task>
     <task id="LOCAL-00001" summary="move to firmware folder">
       <option name="closed" value="true" />
@@ -151,6 +185,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="move to firmware folder" />
