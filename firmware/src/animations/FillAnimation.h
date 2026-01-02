@@ -15,7 +15,7 @@ public:
 
 private:
     Color color = Color::Blue;
-    FillAxis axis = FillAxis::Y;
+    FillAxis axis = FillAxis::Z;
     FillDirection direction = FillDirection::Positive;
     float speed = 1.0f;
 

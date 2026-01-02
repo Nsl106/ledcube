@@ -104,10 +104,10 @@ protected:
      * @param index Zero-based index of the part to extract
      * @return The extracted part, or empty string if index out of bounds
      */
-    static String getPart(const String& str, int index) {
+    static String getPart(const String& str, const int index) {
         int start = 0;
         int count = 0;
-        for (unsigned int i = 0; i <= str.length(); i++) {
+        for (int i = 0; i <= str.length(); i++) {
             if (i == str.length() || str[i] == ':') {
                 if (count == index) {
                     return str.substring(start, i);
@@ -129,7 +129,7 @@ protected:
     static int countParts(const String& str) {
         if (str.length() == 0) return 0;
         int count = 1;
-        for (unsigned int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             if (str[i] == ':') count++;
         }
         return count;

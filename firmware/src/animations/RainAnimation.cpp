@@ -29,10 +29,10 @@ void RainAnimation::update() {
         // Find an inactive drop slot to reuse
         for (int i = 0; i < MAX_DROPS; i++) {
             if (!drops[i].active) {
-                // Spawn at random XZ column, starting at top (Y=15)
+                // Spawn at random XY column, starting at top (Z=15)
                 drops[i].x = random(CUBE_SIZE);
-                drops[i].z = random(CUBE_SIZE);
-                drops[i].y = CUBE_SIZE - 1;
+                drops[i].y = random(CUBE_SIZE);
+                drops[i].z = CUBE_SIZE - 1;
 
                 // Randomize speed ±20% for natural variation
                 drops[i].speed = baseSpeed * (0.8f + random(40) / 100.0f);
@@ -49,17 +49,17 @@ void RainAnimation::update() {
         // Render the drop with its trailing tail
         // t=0 is the drop head (brightest), t=trailLength is the tail (dimmest)
         for (int t = 0; t < (int)trailLength + 1; t++) {
-            float trailY = drops[i].y + t;  // Trail extends upward (+Y) from drop head
+            float trailZ = drops[i].z + t;  // Trail extends upward (+Z) from drop head
 
             // Only render if within cube bounds
-            if (trailY >= 0 && trailY < CUBE_SIZE) {
+            if (trailZ >= 0 && trailZ < CUBE_SIZE) {
                 // Calculate brightness falloff (squared for more dramatic fade)
                 float brightness = 1.0f - (t / trailLength);
                 if (brightness > 0) {
                     LedUtils::setPixel(
                         (int)drops[i].x,
-                        (int)trailY,
-                        (int)drops[i].z,
+                        (int)drops[i].y,
+                        (int)trailZ,
                         LedUtils::scaleColor(color, brightness * brightness)
                     );
                 }
@@ -67,10 +67,10 @@ void RainAnimation::update() {
         }
 
         // Move drop downward
-        drops[i].y -= drops[i].speed;
+        drops[i].z -= drops[i].speed;
 
         // Deactivate when drop (including trail) has fully exited the cube
-        if (drops[i].y < -trailLength) {
+        if (drops[i].z < -trailLength) {
             drops[i].active = false;
         }
     }

@@ -23,7 +23,7 @@ namespace LedUtils {
         return (a + b > 255) ? 255 : a + b;
     }
 
-    Color scaleColor(Color c, float brightness) {
+    Color scaleColor(const Color c, const float brightness) {
         return Color{
             static_cast<uint8_t>(c.r * brightness),
             static_cast<uint8_t>(c.g * brightness),
@@ -32,30 +32,15 @@ namespace LedUtils {
     }
 
     int coordToIndex(int x, int y, int z) {
-        // Z determines which strip (each strip is one Z-slice)
-        int stripOffset = z * LEDS_PER_STRIP;
+        // Y determines which strip (each strip is one Y-slice)
+        int stripOffset = y * LEDS_PER_STRIP;
 
-        // Handle snaking pattern within each XY plane:
-        // Even rows (y=0,2,4...): X goes left-to-right (0→15)
-        // Odd rows (y=1,3,5...): X goes right-to-left (15→0)
-        int xPos = (y % 2 == 0) ? x : (CUBE_SIZE - 1 - x);
+        // Handle snaking pattern within each XZ plane:
+        // Even rows (z=0,2,4...): X goes right-to-left (15→0)
+        // Odd rows (z=1,3,5...): X goes left-to-right (0→15)
+        int xPos = (z % 2 == 0) ? (CUBE_SIZE - 1 - x) : x;
 
-        return stripOffset + y * CUBE_SIZE + xPos;
-    }
-
-    Coord indexToCoord(int index) {
-        // Extract Z from which strip we're in
-        int z = index / LEDS_PER_STRIP;
-        int remainder = index % LEDS_PER_STRIP;
-
-        // Extract Y from position within the strip
-        int y = remainder / CUBE_SIZE;
-        int xPos = remainder % CUBE_SIZE;
-
-        // Reverse X for odd rows (undo snaking)
-        int x = (y % 2 == 0) ? xPos : (CUBE_SIZE - 1 - xPos);
-
-        return {x, y, z};
+        return stripOffset + z * CUBE_SIZE + xPos;
     }
 
     void setPixel(int x, int y, int z, Color color) {

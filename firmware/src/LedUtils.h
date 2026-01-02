@@ -8,12 +8,12 @@
  *
  * Coordinate System:
  *   X: Left (0) to Right (15)
- *   Y: Bottom (0) to Top (15)
- *   Z: Front (0) to Back (15)
+ *   Y: Front (0) to Back (15)
+ *   Z: Bottom (0) to Top (15)
  *
  * Physical Layout:
- *   Each strip is a Z-slice (front-to-back), containing a 16x16 XY plane.
- *   Within each strip, LEDs snake: even Y rows go X=0→15, odd rows go X=15→0.
+ *   Each strip is a Y-slice (front-to-back), containing a 16x16 XZ plane.
+ *   Within each strip, LEDs snake: even Z rows go X=15→0, odd rows go X=0→15.
  */
 
 #pragma once
@@ -44,7 +44,7 @@ namespace LedUtils {
     Color scaleColor(Color c, float brightness);
 
     // Convert 3D cube coordinates to linear LED index
-    // Accounts for the snaking pattern within each Z-slice
+    // Accounts for the snaking pattern within each Y-slice
     int coordToIndex(int x, int y, int z);
 
     // Convert linear LED index back to 3D coordinates

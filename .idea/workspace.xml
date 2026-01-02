@@ -4,43 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3add12c6-2ee1-4efe-9b56-e09b6343084b" name="Changes" comment="add firmware build-only configuration">
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/ledcube.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/.idea/firmware.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/Animation.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/AnimationRegistry.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/AnimationRegistry.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/LedUtils.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/LedUtils.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/FireAnimation.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/FireAnimation.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/LiteralRandomAnimation.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/LiteralRandomAnimation.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/PlaneSweepAnimation.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/PlaneSweepAnimation.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/RgbColorShiftAnimation.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/RgbColorShiftAnimation.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/SolidAnimation.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/SolidAnimation.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleAnimation.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleAnimation.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleFadeAnimation.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleFadeAnimation.h" afterDir="false" />
+    <list default="true" id="3add12c6-2ee1-4efe-9b56-e09b6343084b" name="Changes" comment="add animation control">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/frontend/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/frontend/src/routes/+page.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/firmware/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/firmware/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/Constants.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/Constants.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/Patterns.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/Patterns.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/Animation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/Animation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/LedUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/LedUtils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/LedUtils.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/LedUtils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,33 +48,33 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "NIXITCH_NIXPKGS_CONFIG": "",
-    "NIXITCH_NIX_CONF_DIR": "",
-    "NIXITCH_NIX_OTHER_STORES": "",
-    "NIXITCH_NIX_PATH": "",
-    "NIXITCH_NIX_PROFILES": "",
-    "NIXITCH_NIX_REMOTE": "",
-    "NIXITCH_NIX_USER_PROFILE_DIR": "",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "X:/dev/ledcube-dashboard",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev.executor": "Run",
-    "prettierjs.PrettierConfiguration.Package": "X:\\dev\\ledcube\\dashboard\\frontend\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "ts.external.directory.path": "X:\\dev\\ledcube\\dashboard\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;NIXITCH_NIXPKGS_CONFIG&quot;: &quot;&quot;,
+    &quot;NIXITCH_NIX_CONF_DIR&quot;: &quot;&quot;,
+    &quot;NIXITCH_NIX_OTHER_STORES&quot;: &quot;&quot;,
+    &quot;NIXITCH_NIX_PATH&quot;: &quot;&quot;,
+    &quot;NIXITCH_NIX_PROFILES&quot;: &quot;&quot;,
+    &quot;NIXITCH_NIX_REMOTE&quot;: &quot;&quot;,
+    &quot;NIXITCH_NIX_USER_PROFILE_DIR&quot;: &quot;&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;X:/dev/ledcube-dashboard&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;X:\\dev\\ledcube\\dashboard\\frontend\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;X:\\dev\\ledcube\\dashboard\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="X:\dev\ledcube-dashboard" />
@@ -180,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767295104727</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add animation control">
+      <option name="closed" value="true" />
+      <created>1767303552967</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1767303552967</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,6 +184,7 @@
     <MESSAGE value="add dashboard and claude" />
     <MESSAGE value="add sudo access for teensy flashing" />
     <MESSAGE value="add firmware build-only configuration" />
-    <option name="LAST_COMMIT_MESSAGE" value="add firmware build-only configuration" />
+    <MESSAGE value="add animation control" />
+    <option name="LAST_COMMIT_MESSAGE" value="add animation control" />
   </component>
 </project>

@@ -4,7 +4,7 @@
  * Simulates rain falling down through the cube.
  *
  * Visual Effect:
- *   - Raindrops spawn at random XZ positions at the top of the cube (Y=15)
+ *   - Raindrops spawn at random XY positions at the top of the cube (Z=15)
  *   - Each drop falls downward with a fading trail behind it
  *   - Drops have slightly randomized speeds for natural variation
  *   - Multiple drops fall simultaneously (up to MAX_DROPS)
@@ -34,8 +34,8 @@ private:
 
     // Represents a single falling raindrop
     struct Raindrop {
-        float x, z;      // XZ position (which column the drop falls through)
-        float y;         // Current Y position (falls from 15 down to 0)
+        float x, y;      // XY position (which column the drop falls through)
+        float z;         // Current Z position (falls from 15 down to 0)
         float speed;     // Fall speed (varies slightly per drop)
         bool active;     // Is this drop slot currently in use?
     };
