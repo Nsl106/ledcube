@@ -1,12 +1,18 @@
 <script lang="ts">
+	interface SelectOption {
+		value: string;
+		label: string;
+	}
+
 	interface ParamDef {
 		key: string;
 		label: string;
-		type: 'float' | 'int' | 'color';
+		type: 'float' | 'int' | 'color' | 'select';
 		min?: number;
 		max?: number;
 		default: number | string;
 		step?: number;
+		options?: SelectOption[];
 	}
 
 	interface Animation {
@@ -212,6 +218,17 @@
 										<span class="text-sm text-gray-400 font-mono"
 											>#{getParamValue(anim.id, param)}</span
 										>
+									{:else if param.type === 'select'}
+										<select
+											value={getParamValue(anim.id, param)}
+											onchange={(e) => updateParam(anim.id, param.key, e.currentTarget.value)}
+											disabled={settingAnimation || !status?.connected}
+											class="flex-1 px-3 py-1 rounded bg-gray-600 text-white disabled:opacity-50"
+										>
+											{#each param.options ?? [] as opt}
+												<option value={opt.value}>{opt.label}</option>
+											{/each}
+										</select>
 									{:else}
 										<input
 											type="range"

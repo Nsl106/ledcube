@@ -84,6 +84,51 @@ ANIMATIONS = {
         "description": "Fire simulation",
         "params": [],
     },
+    6: {
+        "id": 6,
+        "name": "Fill",
+        "description": "Layer-by-layer fill",
+        "params": [
+            {"key": "color", "label": "Color", "type": "color", "default": "0000FF"},
+            {"key": "axis", "label": "Axis", "type": "select", "options": [
+                {"value": "y", "label": "Y (Bottom→Top)"},
+                {"value": "z", "label": "Z (Front→Back)"},
+                {"value": "x", "label": "X (Left→Right)"},
+            ], "default": "y"},
+            {"key": "direction", "label": "Direction", "type": "select", "options": [
+                {"value": "+", "label": "Forward"},
+                {"value": "-", "label": "Reverse"},
+            ], "default": "+"},
+            {"key": "speed", "label": "Speed", "type": "float", "min": 0.5, "max": 5.0, "default": 1.0, "step": 0.5},
+        ],
+    },
+    7: {
+        "id": 7,
+        "name": "Plane Sweep",
+        "description": "Diagonal plane sweep",
+        "params": [
+            {"key": "color", "label": "Color", "type": "color", "default": "00FFFF"},
+            {"key": "plane", "label": "Plane", "type": "select", "options": [
+                {"value": "xyz", "label": "XYZ (Corner)"},
+                {"value": "xy", "label": "XY Diagonal"},
+                {"value": "xz", "label": "XZ Diagonal"},
+                {"value": "yz", "label": "YZ Diagonal"},
+            ], "default": "xyz"},
+            {"key": "speed", "label": "Speed", "type": "float", "min": 0.5, "max": 5.0, "default": 1.0, "step": 0.5},
+            {"key": "thickness", "label": "Thickness", "type": "float", "min": 1.0, "max": 8.0, "default": 2.0, "step": 0.5},
+        ],
+    },
+    8: {
+        "id": 8,
+        "name": "Rain",
+        "description": "Falling raindrops with trails",
+        "params": [
+            {"key": "color", "label": "Color", "type": "color", "default": "0064FF"},
+            {"key": "spawnRate", "label": "Density", "type": "float", "min": 0.05, "max": 0.5, "default": 0.15, "step": 0.05},
+            {"key": "speed", "label": "Speed", "type": "float", "min": 0.1, "max": 1.0, "default": 0.3, "step": 0.1},
+            {"key": "trailLength", "label": "Trail Length", "type": "float", "min": 1.0, "max": 8.0, "default": 4.0, "step": 0.5},
+        ],
+    }
 }
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
