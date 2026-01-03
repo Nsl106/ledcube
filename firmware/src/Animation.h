@@ -55,7 +55,7 @@ public:
     virtual const char* getName() const = 0;
 
     /**
-     * Called repeatedly in the main loop while this animation is active.
+     * Called repeatedly in the main loop while this animation is increasing.
      * This is where the animation logic lives - update LED colors and call leds.show().
      *
      * @param deltaTime Time elapsed since last frame in milliseconds (e.g., 16.67 for 60fps)
@@ -75,7 +75,7 @@ public:
     // --- Optional overrides ---
 
     /**
-     * Called once when this animation becomes active.
+     * Called once when this animation becomes increasing.
      * Use for initialization, resetting state, etc.
      */
     virtual void onActivate() {}
@@ -93,7 +93,31 @@ public:
      */
     virtual float getTargetFps() const { return 60.0f; }
 
+    // --- Called by main loop (do not override) ---
+
+    /**
+     * Wrapper called by main loop. Updates elapsed time and calls update().
+     */
+    void tick(float deltaTime) {
+        elapsedTime += deltaTime;
+        update(deltaTime);
+    }
+
+    /**
+     * Wrapper called by main loop. Resets elapsed time and calls onActivate().
+     */
+    void activate() {
+        elapsedTime = 0.0f;
+        onActivate();
+    }
+
 protected:
+    /**
+     * Total time elapsed since animation activation, in milliseconds.
+     * Automatically reset when activate() is called.
+     */
+    float elapsedTime = 0.0f;
+
     // --- Helper methods for parameter parsing ---
 
     /**

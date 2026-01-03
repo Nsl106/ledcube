@@ -36,6 +36,7 @@
 #include "animations/RainAnimation.h"
 #include "animations/TestAnimation.h"
 #include "animations/CenterPulseAnimation.h"
+#include "animations/RainbowFadeAnimation.h"
 
 // ----- OctoWS2811 Configuration -----
 
@@ -112,7 +113,7 @@ void processSerialCommand() {
 
                     // Activate new animation
                     currentAnimation = newAnim;
-                    currentAnimation->onActivate();
+                    currentAnimation->activate();
 
                     // Parse animation-specific parameters (everything after first colon)
                     int firstColon = params.indexOf(':');
@@ -147,7 +148,7 @@ void setup() {
     // Start with default animation (ID 0 = TwinkleFade)
     currentAnimation = AnimationRegistry::instance().getById(0);
     if (currentAnimation) {
-        currentAnimation->onActivate();
+        currentAnimation->activate();
     }
 
     // Initialize timing
@@ -181,7 +182,7 @@ void loop() {
         }
 
         // Update the animation
-        currentAnimation->update(deltaTime);
+        currentAnimation->tick(deltaTime);
 
         // Record frame time
         lastFrameTime = currentTime;

@@ -78,6 +78,15 @@ ANIMATIONS = {
             {"key": "color", "label": "Color", "type": "color", "default": "0000FF"},
         ],
     },
+    5: {
+        "id": 5,
+        "name": "Rainbow Fade",
+        "description": "Rainbow twinkling stars",
+        "params": [
+            {"key": "spawnChance", "label": "Spawn Rate", "type": "float", "min": 0.00001, "max": 0.01, "default": 0.0004, "step": 0.0001},
+            {"key": "timePerRiseFallTime", "label": "Time Per Rise/Fall", "type": "float", "min": 0.1, "max": 5.0, "default": 1.0, "step": 0.1},
+        ],
+    },
     6: {
         "id": 6,
         "name": "Fill",
