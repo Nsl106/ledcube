@@ -8,12 +8,11 @@ void RgbColorShiftAnimation::onActivate() {
     hue = 0.0f;
 }
 
-void RgbColorShiftAnimation::update() {
+void RgbColorShiftAnimation::update(float deltaTime) {
     for (int i = 0; i < LED_COUNT; i++) {
         leds.setPixel(i, Color::fromHSV(fmod(hue + i * size, 360), 1, brightness).asInt());
     }
     hue = fmod(hue + speed, 360);
-    delayNanoseconds(10000);
     leds.show();
 }
 

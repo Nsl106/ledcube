@@ -78,12 +78,6 @@ ANIMATIONS = {
             {"key": "color", "label": "Color", "type": "color", "default": "0000FF"},
         ],
     },
-    5: {
-        "id": 5,
-        "name": "Fire",
-        "description": "Fire simulation",
-        "params": [],
-    },
     6: {
         "id": 6,
         "name": "Fill",
@@ -146,10 +140,11 @@ ANIMATIONS = {
         "description": "CenterPulse",
         "params": [
             {"key": "color", "label": "Color", "type": "color", "default": "2D002D"},
-            {"key": "speed", "label": "Speed", "type": "float", "min": 0, "max": 1, "default": 0.5, "step": 0.01},
+            {"key": "speed", "label": "Speed", "type": "float", "min": 0, "max": 24.0, "default": 8.0, "step": 1.0},
             {"key": "style", "label": "Style", "type": "select", "options": [
                 {"value": "fill", "label": "Fill"},
                 {"value": "edges", "label": "Edges"},
+                {"value": "faces", "label": "Faces"},
             ], "default": "fill"},
         ],
     }

@@ -10,7 +10,7 @@ void TwinkleFadeAnimation::onActivate() {
     }
 }
 
-void TwinkleFadeAnimation::update() {
+void TwinkleFadeAnimation::update(float deltaTime) {
     for (int i = 0; i < LED_COUNT; i++) {
         brightness[i] *= fadeRate;
 

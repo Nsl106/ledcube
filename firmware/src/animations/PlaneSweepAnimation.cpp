@@ -20,7 +20,7 @@ void PlaneSweepAnimation::onActivate() {
     }
 }
 
-void PlaneSweepAnimation::update() {
+void PlaneSweepAnimation::update(float deltaTime) {
     LedUtils::fill(Color::Black);
 
     int posInt = static_cast<int>(position);
@@ -59,7 +59,6 @@ void PlaneSweepAnimation::update() {
         }
     }
 
-    delay(16);
 }
 
 bool PlaneSweepAnimation::parseParams(const String& params) {

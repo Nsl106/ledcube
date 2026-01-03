@@ -9,7 +9,7 @@ void FillAnimation::onActivate() {
     filling = true;
 }
 
-void FillAnimation::update() {
+void FillAnimation::update(float deltaTime) {
     LedUtils::fill(Color::Black);
 
     int layerLimit = static_cast<int>(currentLayer);
@@ -50,7 +50,6 @@ void FillAnimation::update() {
         }
     }
 
-    delay(16);
 }
 
 bool FillAnimation::parseParams(const String& params) {

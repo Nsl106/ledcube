@@ -6,7 +6,7 @@ class TwinkleFadeAnimation : public Animation {
 public:
     int getId() const override { return 0; }
     const char* getName() const override { return "TwinkleFade"; }
-    void update() override;
+    void update(float deltaTime) override;
     bool parseParams(const String& params) override;
     void onActivate() override;
 

@@ -6,12 +6,13 @@ class TwinkleAnimation : public Animation {
 public:
     int getId() const override { return 2; }
     const char* getName() const override { return "Twinkle"; }
-    void update() override;
+    void update(float deltaTime) override;
     bool parseParams(const String& params) override;
 
 private:
     int num = 50;
     Color color = Color::White;
     Color bg = Color::Black;
-    int delayMs = 100;
+    float delayMs = 100.0f;
+    float totalTimeMs = 0.0f;
 };

@@ -4,13 +4,16 @@
 
 REGISTER_ANIMATION(TwinkleAnimation);
 
-void TwinkleAnimation::update() {
+void TwinkleAnimation::update(float deltaTime) {
+    totalTimeMs += deltaTime;
+    if (totalTimeMs < delayMs) return;
+    totalTimeMs = 0;
+
     LedUtils::fill(bg);
     for (int i = 0; i < num; i++) {
         leds.setPixelColor(random(LED_COUNT), color.asInt());
     }
     leds.show();
-    delay(delayMs);
 }
 
 bool TwinkleAnimation::parseParams(const String& params) {
@@ -20,6 +23,6 @@ bool TwinkleAnimation::parseParams(const String& params) {
     num = getPart(params, 0).toInt();
     color = parseHexColor(getPart(params, 1));
     bg = parseHexColor(getPart(params, 2));
-    delayMs = getPart(params, 3).toInt();
+    delayMs = getPart(params, 3).toFloat();
     return true;
 }

@@ -31,11 +31,11 @@
 #include "animations/TwinkleAnimation.h"
 #include "animations/LiteralRandomAnimation.h"
 #include "animations/SolidAnimation.h"
-#include "animations/FireAnimation.h"
 #include "animations/FillAnimation.h"
 #include "animations/PlaneSweepAnimation.h"
 #include "animations/RainAnimation.h"
 #include "animations/TestAnimation.h"
+#include "animations/CenterPulseAnimation.h"
 
 // ----- OctoWS2811 Configuration -----
 
@@ -63,6 +63,9 @@ static Animation* currentAnimation = nullptr;
 
 // Buffer for accumulating serial input
 static String serialBuffer = "";
+
+// Timing for frame rate control
+static unsigned long lastFrameTime = 0;
 
 // ----- Helper Functions -----
 
@@ -146,14 +149,41 @@ void setup() {
     if (currentAnimation) {
         currentAnimation->onActivate();
     }
+
+    // Initialize timing
+    lastFrameTime = micros();
 }
 
 void loop() {
-    // Check for and process serial commands
+    // Always process serial commands - responsive even during animation
     processSerialCommand();
 
-    // Run current animation's update loop
-    if (currentAnimation != nullptr) {
-        currentAnimation->update();
+    if (currentAnimation == nullptr) {
+        return;
+    }
+
+    // Calculate time since last frame
+    unsigned long currentTime = micros();
+    unsigned long elapsedMicros = currentTime - lastFrameTime;
+
+    // Calculate minimum frame time from animation's target FPS
+    float targetFps = currentAnimation->getTargetFps();
+    unsigned long targetFrameMicros = static_cast<unsigned long>(1000000.0f / targetFps);
+
+    // Only update if enough time has passed (frame rate limiting)
+    if (elapsedMicros >= targetFrameMicros) {
+        // Convert to milliseconds for animation
+        float deltaTime = elapsedMicros / 1000.0f;
+
+        // Cap deltaTime to prevent huge jumps (e.g., after pause/debug)
+        if (deltaTime > 100.0f) {
+            deltaTime = 100.0f;
+        }
+
+        // Update the animation
+        currentAnimation->update(deltaTime);
+
+        // Record frame time
+        lastFrameTime = currentTime;
     }
 }

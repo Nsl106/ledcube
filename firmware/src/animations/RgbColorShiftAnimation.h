@@ -6,7 +6,7 @@ class RgbColorShiftAnimation : public Animation {
 public:
     int getId() const override { return 1; }
     const char* getName() const override { return "RgbColorShift"; }
-    void update() override;
+    void update(float deltaTime) override;
     bool parseParams(const String& params) override;
     void onActivate() override;
 

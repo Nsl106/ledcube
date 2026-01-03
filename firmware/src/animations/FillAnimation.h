@@ -9,7 +9,7 @@ class FillAnimation : public Animation {
 public:
     int getId() const override { return 6; }
     const char* getName() const override { return "Fill"; }
-    void update() override;
+    void update(float deltaTime) override;
     bool parseParams(const String& params) override;
     void onActivate() override;
 

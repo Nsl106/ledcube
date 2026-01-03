@@ -6,7 +6,7 @@ class TestAnimation : public Animation {
 public:
     int getId() const override { return 9; }
     const char* getName() const override { return "Test"; }
-    void update() override;
+    void update(float deltaTime) override;
     bool parseParams(const String& params) override;
     void onActivate() override;
 

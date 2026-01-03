@@ -19,7 +19,7 @@ void RainAnimation::onActivate() {
     }
 }
 
-void RainAnimation::update() {
+void RainAnimation::update(float deltaTime) {
     // Clear the cube each frame (rain doesn't leave residue)
     LedUtils::fill(Color::Black);
 
@@ -76,7 +76,6 @@ void RainAnimation::update() {
     }
 
     leds.show();
-    delay(16);  // ~60 FPS
 }
 
 bool RainAnimation::parseParams(const String& params) {

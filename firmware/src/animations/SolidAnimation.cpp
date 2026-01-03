@@ -4,10 +4,9 @@
 
 REGISTER_ANIMATION(SolidAnimation);
 
-void SolidAnimation::update() {
+void SolidAnimation::update(float deltaTime) {
     LedUtils::fill(color);
     leds.show();
-    delay(10);
 }
 
 bool SolidAnimation::parseParams(const String& params) {

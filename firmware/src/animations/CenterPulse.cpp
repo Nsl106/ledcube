@@ -9,7 +9,7 @@ void CenterPulseAnimation::onActivate() {
     LedUtils::fill(Color::Black);
 }
 
-void CenterPulseAnimation::update() {
+void CenterPulseAnimation::update(float deltaTime) {
     if (size > 8) {
         size = 0;
         erasing = !erasing;
@@ -56,13 +56,35 @@ void CenterPulseAnimation::update() {
         LedUtils::fillBox(corners[1], corners[5], currentColor);
         LedUtils::fillBox(corners[2], corners[6], currentColor);
         LedUtils::fillBox(corners[3], corners[7], currentColor);
+    } else if (style == Style::FACES) {
+        LedUtils::fill(Color::Black);
+        const Coord corners[8] = {
+            {7 - intSize, 7 - intSize, 7 - intSize},
+            {7 - intSize, 8 + intSize, 7 - intSize},
+            {8 + intSize, 8 + intSize, 7 - intSize},
+            {8 + intSize, 7 - intSize, 7 - intSize},
+
+            {7 - intSize, 7 - intSize, 8 + intSize},
+            {7 - intSize, 8 + intSize, 8 + intSize},
+            {8 + intSize, 8 + intSize, 8 + intSize},
+            {8 + intSize, 7 - intSize, 8 + intSize},
+        };
+
+        const Color currentColor = color;
+
+        // Bottom
+        LedUtils::fillBox(corners[0], corners[2], currentColor);
+        LedUtils::fillBox(corners[4], corners[7], currentColor);
+        LedUtils::fillBox(corners[0], corners[5], currentColor);
+        LedUtils::fillBox(corners[1], corners[6], currentColor);
+        LedUtils::fillBox(corners[2], corners[7], currentColor);
+        LedUtils::fillBox(corners[3], corners[4], currentColor);
     }
 
     leds.show();
 
-    size += speed * 0.3f;
-
-    delay(16);
+    // Frame-rate independent: speed = size-units per second, deltaTime in ms
+    size += speed * deltaTime / 1000.0f;
 }
 
 bool CenterPulseAnimation::parseParams(const String& params) {
@@ -77,6 +99,7 @@ bool CenterPulseAnimation::parseParams(const String& params) {
     styleName.toLowerCase();
     if (styleName == "fill") style = Style::FILL;
     else if (styleName == "edges") style = Style::EDGES;
+    else if (styleName == "faces") style = Style::FACES;
 
     return true;
 }

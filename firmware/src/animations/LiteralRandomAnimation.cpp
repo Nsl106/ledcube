@@ -3,12 +3,15 @@
 
 REGISTER_ANIMATION(LiteralRandomAnimation);
 
-void LiteralRandomAnimation::update() {
+void LiteralRandomAnimation::update(float deltaTime) {
+    totalTimeMs += deltaTime;
+    if (totalTimeMs < durationMs) return;
+    totalTimeMs = 0;
+
     for (int i = 0; i < LED_COUNT; i++) {
         leds.setPixel(i, Color::fromHSV(random(360), 1, brightness).asInt());
     }
     leds.show();
-    delay(durationMs);
 }
 
 bool LiteralRandomAnimation::parseParams(const String& params) {

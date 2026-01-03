@@ -9,14 +9,12 @@ void TestAnimation::onActivate() {
     filling = true;
 }
 
-void TestAnimation::update() {
+void TestAnimation::update(float deltaTime) {
     LedUtils::fill(Color::Black);
 
     LedUtils::setPixel(x, y, z, color);
 
     leds.show();
-
-    delay(20);
 }
 
 bool TestAnimation::parseParams(const String& params) {

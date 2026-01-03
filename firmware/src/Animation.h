@@ -16,7 +16,7 @@
  *   public:
  *       int getId() const override { return 99; }
  *       const char* getName() const override { return "My Animation"; }
- *       void update() override { ... }
+ *       void update(float deltaTime) override { ... }
  *       bool parseParams(const String& params) override { ... }
  *   };
  *
@@ -57,9 +57,11 @@ public:
     /**
      * Called repeatedly in the main loop while this animation is active.
      * This is where the animation logic lives - update LED colors and call leds.show().
-     * Should include a small delay() to control frame rate.
+     *
+     * @param deltaTime Time elapsed since last frame in milliseconds (e.g., 16.67 for 60fps)
+     *                  Use this to make animations frame-rate independent.
      */
-    virtual void update() = 0;
+    virtual void update(float deltaTime) = 0;
 
     /**
      * Parse animation-specific parameters from a colon-separated string.
@@ -83,6 +85,13 @@ public:
      * Use for cleanup if needed.
      */
     virtual void onDeactivate() {}
+
+    /**
+     * Returns the target frames per second for this animation.
+     * The main loop will attempt to call update() at this rate.
+     * Override to change from default 60 FPS.
+     */
+    virtual float getTargetFps() const { return 60.0f; }
 
 protected:
     // --- Helper methods for parameter parsing ---

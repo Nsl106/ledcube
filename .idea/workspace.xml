@@ -4,13 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3add12c6-2ee1-4efe-9b56-e09b6343084b" name="Changes" comment="test animation">
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/CenterPulse.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/firmware/src/animations/CenterPulseAnimation.h" afterDir="false" />
+    <list default="true" id="3add12c6-2ee1-4efe-9b56-e09b6343084b" name="Changes" comment="add build and flash run configuration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/backend/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/LedUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/LedUtils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firmware/src/LedUtils.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/LedUtils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/Animation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/Animation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/CenterPulse.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/CenterPulse.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/CenterPulseAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/CenterPulseAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/FillAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/FireAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/FireAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/FireAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/FireAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/LiteralRandomAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/LiteralRandomAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/LiteralRandomAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/LiteralRandomAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/PlaneSweepAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/PlaneSweepAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/PlaneSweepAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/PlaneSweepAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/RainAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/RgbColorShiftAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/RgbColorShiftAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/RgbColorShiftAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/RgbColorShiftAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/SolidAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/SolidAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/SolidAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/SolidAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/TestAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/TestAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/TestAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/TestAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/TwinkleAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/TwinkleAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/TwinkleFadeAnimation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleFadeAnimation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/animations/TwinkleFadeAnimation.h" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/animations/TwinkleFadeAnimation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/firmware/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +186,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767379425767</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add center pulse animation">
+      <option name="closed" value="true" />
+      <created>1767408098089</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1767408098089</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add build and flash run configuration">
+      <option name="closed" value="true" />
+      <created>1767408109838</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1767408109838</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,6 +226,8 @@
     <MESSAGE value="add firmware build-only configuration" />
     <MESSAGE value="add animation control" />
     <MESSAGE value="test animation" />
-    <option name="LAST_COMMIT_MESSAGE" value="test animation" />
+    <MESSAGE value="add center pulse animation" />
+    <MESSAGE value="add build and flash run configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="add build and flash run configuration" />
   </component>
 </project>
