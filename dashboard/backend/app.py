@@ -139,6 +139,19 @@ ANIMATIONS = {
             {"key": "y", "label": "Y", "type": "int", "min": 0, "max": 15, "default": 0, "step": 1},
             {"key": "z", "label": "Z", "type": "int", "min": 0, "max": 15, "default": 0, "step": 1},
         ],
+    },
+    10: {
+        "id": 10,
+        "name": "CenterPulse",
+        "description": "CenterPulse",
+        "params": [
+            {"key": "color", "label": "Color", "type": "color", "default": "2D002D"},
+            {"key": "speed", "label": "Speed", "type": "float", "min": 0, "max": 1, "default": 0.5, "step": 0.01},
+            {"key": "style", "label": "Style", "type": "select", "options": [
+                {"value": "fill", "label": "Fill"},
+                {"value": "edges", "label": "Edges"},
+            ], "default": "fill"},
+        ],
     }
 }
 

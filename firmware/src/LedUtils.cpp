@@ -44,7 +44,29 @@ namespace LedUtils {
     }
 
     void setPixel(int x, int y, int z, Color color) {
+        if (!isValidCoord(x, y, z)) return;
         leds.setPixel(coordToIndex(x, y, z), color.asInt());
+    }
+
+    void fillBox(int x1, int y1, int z1, int x2, int y2, int z2, Color color) {
+        int minX = (x1 < x2) ? x1 : x2;
+        int maxX = (x1 > x2) ? x1 : x2;
+        int minY = (y1 < y2) ? y1 : y2;
+        int maxY = (y1 > y2) ? y1 : y2;
+        int minZ = (z1 < z2) ? z1 : z2;
+        int maxZ = (z1 > z2) ? z1 : z2;
+
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = minY; y <= maxY; y++) {
+                for (int z = minZ; z <= maxZ; z++) {
+                    setPixel(x, y, z, color);
+                }
+            }
+        }
+    }
+
+    void fillBox(Coord c1, Coord c2, Color color) {
+        fillBox(c1.x, c1.y, c1.z, c2.x, c2.y, c2.z, color);
     }
 
 }

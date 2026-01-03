@@ -31,6 +31,13 @@ struct Coord {
 };
 
 namespace LedUtils {
+    // Check if coordinates are within valid cube bounds [0, CUBE_SIZE-1]
+    inline bool isValidCoord(int x, int y, int z) {
+        return x >= 0 && x < CUBE_SIZE &&
+               y >= 0 && y < CUBE_SIZE &&
+               z >= 0 && z < CUBE_SIZE;
+    }
+
     // Fill all LEDs with a single color
     void fill(Color color);
 
@@ -52,4 +59,8 @@ namespace LedUtils {
 
     // Set a pixel by 3D coordinates (convenience wrapper)
     void setPixel(int x, int y, int z, Color color);
+
+    // Fill a rectangular box between two corner coordinates (inclusive)
+    void fillBox(int x1, int y1, int z1, int x2, int y2, int z2, Color color);
+    void fillBox(Coord c1, Coord c2, Color color);
 }
