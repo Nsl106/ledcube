@@ -3,18 +3,20 @@
 #include "Color.h"
 
 Color Palette::sample(float t) const {
-    t = t - static_cast<int>(t); // wrap [0,1)
-    const float pos = t * size;
-    const int i = static_cast<int>(pos);
-    float f = pos - i;
+    if (t <= 0.0f) return (*this)[0];
+    if (t >= 1.0f) return (*this)[size - 1];
+
+    const float pos = t * (size - 1);
+    const int i = static_cast<int>(pos); // Integer
+    const float f = pos - i; // After the decimal point
 
     const Color& a = (*this)[i];
     const Color& b = (*this)[i + 1];
 
     return Color(
-        a.r + (b.r - a.r) * f,
-        a.g + (b.g - a.g) * f,
-        a.b + (b.b - a.b) * f
+        a.r + (b.r - a.r) * f + 0.5f,
+        a.g + (b.g - a.g) * f + 0.5f,
+        a.b + (b.b - a.b) * f + 0.5f
     );
 }
 
@@ -38,7 +40,6 @@ const Color Palette::PaletteRainbowColors[] = {
 };
 
 const Color Palette::PaletteFireColors[] = {
-    Color::Black,
     Color::DarkRed,
     Color::Red,
     Color::OrangeRed,
@@ -56,7 +57,6 @@ const Color Palette::PaletteOceanColors[] = {
 };
 
 const Color Palette::PaletteSynthwaveColors[] = {
-    Color::Black,
     Color::Purple,
     Color::Magenta,
     Color::HotPink,
@@ -74,7 +74,6 @@ const Color Palette::PaletteForestColors[] = {
 };
 
 const Color Palette::PaletteIceColors[] = {
-    Color::Black,
     Color::MidnightBlue,
     Color::Blue,
     Color::LightBlue,
@@ -83,7 +82,6 @@ const Color Palette::PaletteIceColors[] = {
 };
 
 const Color Palette::PaletteAcidColors[] = {
-    Color::Black,
     Color::Lime,
     Color::Chartreuse,
     Color::Yellow,

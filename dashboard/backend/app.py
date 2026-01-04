@@ -156,7 +156,16 @@ ANIMATIONS = {
                 {"value": "faces", "label": "Faces"},
             ], "default": "fill"},
         ],
-    }
+    },
+    11: {
+        "id": 11,
+        "name": "Wave",
+        "description": "Wave",
+        "params": [
+            {"key": "k", "label": "K", "type": "float", "min": 0, "max": 1.5, "default": 0.15, "step": 0.001},
+            {"key": "speed", "label": "Speed", "type": "float", "min": 0, "max": 10, "default": 2, "step": 0.1},
+        ],
+    },
 }
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER

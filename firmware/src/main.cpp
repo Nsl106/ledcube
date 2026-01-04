@@ -37,6 +37,7 @@
 #include "animations/TestAnimation.h"
 #include "animations/CenterPulseAnimation.h"
 #include "animations/RainbowFadeAnimation.h"
+#include "animations/Wave.h"
 
 // ----- OctoWS2811 Configuration -----
 
