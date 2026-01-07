@@ -25,7 +25,7 @@ Color Palette::randomColor() const {
         return Color(); // black / default safety
     }
 
-    int idx = random(size);  // [0, size)
+    int idx = random(size); // [0, size)
     return colors[idx];
 }
 
@@ -74,11 +74,12 @@ const Color Palette::PaletteForestColors[] = {
 };
 
 const Color Palette::PaletteIceColors[] = {
-    Color::MidnightBlue,
-    Color::Blue,
-    Color::LightBlue,
+    Color::White,
     Color::AliceBlue,
-    Color::White
+    Color::Blue,
+    Color::Blue,
+    Color::MidnightBlue,
+    Color::MidnightBlue,
 };
 
 const Color Palette::PaletteAcidColors[] = {

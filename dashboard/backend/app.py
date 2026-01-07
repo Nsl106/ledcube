@@ -166,6 +166,15 @@ ANIMATIONS = {
             {"key": "speed", "label": "Speed", "type": "float", "min": 0, "max": 10, "default": 2, "step": 0.1},
         ],
     },
+    12: {
+        "id": 12,
+        "name": "Snow",
+        "description": "Snow",
+        "params": [
+            {"key": "snowflakes-per-sec", "label": "Snowflakes/Sec", "type": "float", "min": 0, "max": 250, "default": 5, "step": 0.1},
+            {"key": "brightness", "label": "Brightness", "type": "float", "min": 0, "max": 1, "default": 1, "step": 0.1},
+        ],
+    },
 }
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
