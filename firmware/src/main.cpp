@@ -94,6 +94,11 @@ String getPart(const String& str, char delim, int index) {
 /**
  * Process incoming serial commands.
  * Reads characters until newline, then parses and executes the command.
+ *
+ * Smart reset behavior:
+ *   - Switching to a different animation: full reset (onDeactivate → onActivate)
+ *   - Same animation without :RESET flag: only parseParams (preserves animation state)
+ *   - Same animation with :RESET flag: full reset (for explicit Reset button)
  */
 void processSerialCommand() {
     while (Serial.available()) {
@@ -102,25 +107,37 @@ void processSerialCommand() {
         if (c == '\n') {
             // Process complete command
             if (serialBuffer.startsWith("ANIM:")) {
+                // Check for :RESET flag at end of command
+                bool forceReset = serialBuffer.endsWith(":RESET");
+                String command = forceReset
+                    ? serialBuffer.substring(0, serialBuffer.length() - 6)  // Strip ":RESET"
+                    : serialBuffer;
+
                 // Parse animation command: "ANIM:<id>:<params...>"
-                String params = serialBuffer.substring(5);
+                String params = command.substring(5);
                 int id = getPart(params, ':', 0).toInt();
 
                 Animation* newAnim = AnimationRegistry::instance().getById(id);
                 if (newAnim != nullptr) {
-                    // Deactivate current animation
-                    if (currentAnimation != nullptr) {
-                        currentAnimation->onDeactivate();
-                    }
-
-                    // Activate new animation
-                    currentAnimation = newAnim;
-                    currentAnimation->activate();
-
-                    // Parse animation-specific parameters (everything after first colon)
+                    // Extract animation-specific parameters (everything after first colon)
+                    String animParams = "";
                     int firstColon = params.indexOf(':');
                     if (firstColon >= 0 && firstColon < (int)params.length() - 1) {
-                        String animParams = params.substring(firstColon + 1);
+                        animParams = params.substring(firstColon + 1);
+                    }
+
+                    // Smart reset: only do full activation cycle if switching animations or forced
+                    bool isSameAnimation = (newAnim == currentAnimation);
+                    if (isSameAnimation && !forceReset) {
+                        // Same animation, just update params without reset
+                        currentAnimation->parseParams(animParams);
+                    } else {
+                        // Different animation or forced reset - full cycle
+                        if (currentAnimation != nullptr) {
+                            currentAnimation->onDeactivate();
+                        }
+                        currentAnimation = newAnim;
+                        currentAnimation->activate();
                         currentAnimation->parseParams(animParams);
                     }
 

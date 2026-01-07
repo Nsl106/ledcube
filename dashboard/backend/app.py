@@ -292,7 +292,11 @@ def get_animations():
 
 @app.route("/api/animation", methods=["POST"])
 def set_animation():
-    """Set the current animation by ID with optional parameters."""
+    """Set the current animation by ID with optional parameters.
+
+    Optional 'reset' param forces animation to restart even if already active.
+    Without reset, parameter changes on the same animation preserve animation state.
+    """
     data = request.get_json()
 
     if not data or "id" not in data:
@@ -305,6 +309,7 @@ def set_animation():
 
     anim = ANIMATIONS[animation_id]
     params = data.get("params", {})
+    reset = data.get("reset", False)
 
     # Build command with parameters in order
     cmd_parts = [str(animation_id)]
@@ -317,6 +322,8 @@ def set_animation():
         cmd_parts.append(str(value))
 
     command = f"ANIM:{':'.join(cmd_parts)}"
+    if reset:
+        command += ":RESET"
     success, message = serial_manager.send_command(command)
 
     if success:

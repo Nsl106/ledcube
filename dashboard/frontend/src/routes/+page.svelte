@@ -99,7 +99,11 @@
 		}
 	}
 
-	async function setAnimation(id: number, params?: Record<string, number | string>) {
+	async function setAnimation(
+		id: number,
+		params?: Record<string, number | string>,
+		reset: boolean = false
+	) {
 		settingAnimation = true;
 		animationError = null;
 
@@ -109,7 +113,7 @@
 			const res = await fetch('/api/animation', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ id, params: sendParams })
+				body: JSON.stringify({ id, params: sendParams, reset })
 			});
 
 			const data = await res.json();
@@ -178,7 +182,7 @@
 			<div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
 				{#each animations as anim}
 					<button
-						onclick={() => setAnimation(anim.id)}
+						onclick={() => setAnimation(anim.id, undefined, true)}
 						disabled={settingAnimation || !status?.connected}
 						class="p-3 rounded-lg text-left transition-colors
 							{currentAnimation === anim.id
@@ -197,7 +201,16 @@
 				{@const anim = animations.find((a) => a.id === currentAnimation)}
 				{#if anim && anim.params.length > 0}
 					<div class="mt-4 p-4 rounded-lg bg-gray-700">
-						<h3 class="text-lg font-medium mb-3">{anim.name} Settings</h3>
+						<div class="flex items-center justify-between mb-3">
+							<h3 class="text-lg font-medium">{anim.name} Settings</h3>
+							<button
+								onclick={() => setAnimation(anim.id, undefined, true)}
+								disabled={settingAnimation || !status?.connected}
+								class="px-3 py-1 text-sm bg-gray-600 rounded hover:bg-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
+							>
+								Reset
+							</button>
+						</div>
 						<div class="space-y-4">
 							{#each anim.params as param}
 								<div class="flex items-center gap-4">
